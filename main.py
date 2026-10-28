@@ -69,7 +69,6 @@ def handle_uninvited_dm(message):
         pass
     return
 
-
 # Таможня имен (для дипсика и команд с его участием)
 def get_sender_name(message):
     if message.from_user.id == MY_PERSONAL_ID:
@@ -367,12 +366,12 @@ def handle_messages(message):
     text = text.lower()
 
     need_to_ask_deepseek = False
+    file_ids_to_download = []
     user_question = ""
     is_reply_to_mimiga = (message.reply_to_message and getattr(message.reply_to_message.from_user, 'username', '') == 'this_bot')
     if text.startswith('мимига скажи') or text.startswith('/mimiga') or is_reply_to_mimiga:
         need_to_ask_deepseek = True
         raw_text = message.text or message.caption or ""
-        file_ids_to_download = []
         if text.startswith('мимига скажи'):
             user_question = raw_text[12:].strip()
         elif text.startswith('/mimiga'):
